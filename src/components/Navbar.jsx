@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import logo from '../assets/rgu.png';
-import { GrLanguage } from "react-icons/gr";
-import { BiSolidDashboard, BiX } from "react-icons/bi";
+import { BiRupee, BiSolidDashboard, BiX } from "react-icons/bi";
 import { Link } from 'react-scroll';
 
 const Navbar = () => {
@@ -13,8 +12,8 @@ const Navbar = () => {
 
     const navItems = [
         { link: "Overview", path: "home" },
-        { link: "Feature", path: "feature" },
-        { link: "About", path: "about" },
+        { link: "About", path: "feature" },
+        { link: "Features", path: "about" },
         { link: "Pricing", path: "pricing" },
     ];
 
@@ -27,7 +26,7 @@ const Navbar = () => {
                     <div className='flex space-x-14 items-center'>
                         <a href="/" className='text-2xl font-semibold flex items-center space-x-3 text-primary'>
                             <img src={logo} alt="logo" className='w-10 inline-block' />
-                            <span>Sxyz</span>
+                            <span>ShootMate</span>
                         </a>
 
                         <ul className='md:flex space-x-12 hidden'>
@@ -40,12 +39,12 @@ const Navbar = () => {
                     </div>
 
                     <div className='space-x-12 hidden md:flex items-center'>
-                        <a href="/" className='hidden lg:flex items-center hover:text-secondary'>
-                            <GrLanguage className='mr-2' />
-                            <span>Language</span>
-                        </a>
-                        <button className='bg-secondary text-white py-2 px-4 transition-all duration-100 rounded hover:text-white hover:bg-indigo-600'>
-                            SignUp
+                        <Link to="pricing" spy={true} smooth={true} offset={-100} className='hidden lg:flex items-center hover:text-[#212EA0] cursor-pointer'>
+                            <BiRupee className='mr-2' />
+                            <span>Get Started</span>
+                        </Link>
+                        <button className='bg-secondary text-white py-2 px-4 transition-all duration-100 rounded hover:text-white hover:bg-primary'>
+                            Login
                         </button>
                     </div>
 
@@ -59,16 +58,10 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`space-y-4 px-4 pt-5 pb-5 bg-secondary text-white fixed top-0 right-0 left-0 z-50 transition-transform duration-300 ${
+                className={`space-y-4 px-4 pt-5 pb-5 bg-secondary text-white fixed top-15 right-0 left-0 z-50 transition-transform duration-300 ${
                     isMenuOpen ? 'block' : 'hidden'
                 }`}
             >
-                {/* Close Icon at Top Right */}
-                <div className='flex justify-end px-4'>
-                    <button onClick={toggleMenu} className='text-white'>
-                        <BiX className='w-8 h-8' />
-                    </button>
-                </div>
 
                 {/* Navigation Links */}
                 {navItems.map(({ link, path }) => (
