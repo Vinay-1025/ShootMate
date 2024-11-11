@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import logo from '../assets/rgu.png';
-import { BiRupee, BiSolidDashboard, BiX } from "react-icons/bi";
-import { Link } from 'react-scroll';
+import { BiLogIn, BiRupee, BiSelection, BiSolidDashboard, BiX } from "react-icons/bi";
+import { Link as ScrollLink } from 'react-scroll';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-    }
+    };
 
     const navItems = [
         { link: "Overview", path: "home" },
@@ -17,7 +19,13 @@ const Navbar = () => {
         { link: "Pricing", path: "pricing" },
     ];
 
+    const handleLogin = () => {
+        navigate('/login'); // Navigate to the login page
+    };
 
+    const handleUser = () => {
+        navigate('/slotbooking');
+    }
 
     return (
         <>
@@ -31,26 +39,43 @@ const Navbar = () => {
 
                         <ul className='md:flex space-x-12 hidden'>
                             {navItems.map(({ link, path }) => (
-                                <Link key={link} activeClass='active' spy={true} smooth={true} offset={-100} to={path} className='block hover:text-[#212EA0] cursor-pointer'>
+                                <ScrollLink
+                                    key={link}
+                                    activeClass='active'
+                                    spy={true}
+                                    smooth={true}
+                                    offset={-100}
+                                    to={path}
+                                    className='block hover:text-[#212EA0] cursor-pointer'
+                                >
                                     {link}
-                                </Link>
+                                </ScrollLink>
                             ))}
                         </ul>
                     </div>
 
                     <div className='space-x-12 hidden md:flex items-center'>
-                        <Link to="pricing" spy={true} smooth={true} offset={-100} className='hidden lg:flex items-center hover:text-[#212EA0] cursor-pointer'>
-                            <BiRupee className='mr-2' />
+                        <div className='hidden lg:flex items-center hover:text-[#212EA0] cursor-pointer' onClick={handleUser}>
+                            <BiSelection className='mr-2 text-md' />
                             <span>Get Started</span>
-                        </Link>
-                        <button className='bg-secondary text-white py-2 px-4 transition-all duration-100 rounded hover:text-white hover:bg-primary'>
+                        </div>
+                        <button
+                            className='bg-secondary text-white py-2 px-4 transition-all duration-100 rounded hover:text-white hover:bg-primary'
+                            onClick={handleLogin} // Add onClick event
+                        >
                             Login
                         </button>
                     </div>
 
                     <div className='md:hidden'>
+                        <button
+                            className='text-primary focus:outline-none'
+                            onClick={handleLogin} // Navigate to login on mobile icon click
+                        >
+                            <BiLogIn className='w-6 h-6 mr-3 text-secondary hover:text-primary' />
+                        </button>
                         <button onClick={toggleMenu} className='text-primary focus:outline-none'>
-                            {isMenuOpen ? <BiX className='w-6 h-6 text-primary' /> : <BiSolidDashboard className='w-6 h-6 text-primary' />}
+                            {isMenuOpen ? <BiX className='w-6 h-6 text-primary' /> : <BiSolidDashboard className='w-6 h-6 text-secondary hover:text-primary' />}
                         </button>
                     </div>
                 </div>
@@ -62,12 +87,18 @@ const Navbar = () => {
                     isMenuOpen ? 'block' : 'hidden'
                 }`}
             >
-
-                {/* Navigation Links */}
                 {navItems.map(({ link, path }) => (
-                    <Link key={link} activeClass='active' spy={true} smooth={true} offset={-80} to={path} className='block text-white hover:text-gray-300'>
+                    <ScrollLink
+                        key={link}
+                        activeClass='active'
+                        spy={true}
+                        smooth={true}
+                        offset={-80}
+                        to={path}
+                        className='block text-white hover:text-gray-300'
+                    >
                         {link}
-                    </Link>
+                    </ScrollLink>
                 ))}
             </div>
         </>
